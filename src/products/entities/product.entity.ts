@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { ProductImage } from "./product-image.entity";
 
 //este entity archivo es como una tabla en postgres,definimos los parametros
 @Entity()
@@ -37,6 +38,21 @@ export class Product {
     sizes: string[];
 
     @Column('text')
-    gender:string
+    gender:string;
+
+
+    @Column('text',{
+        array: true,
+        default: []
+
+    })
+    tags: string[];
+
+    @OneToMany(
+        () => ProductImage,
+        productImage => productImage.product,
+        {cascade: true, eager: true}
+    )
+    images?: ProductImage[];
 
 }
