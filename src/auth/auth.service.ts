@@ -43,7 +43,7 @@ export class AuthService {
      //lo retornamos
      return {
       ...user,
-      token: this.getJwtToken({email: user.email})
+      token: this.getJwtToken({id: user.id})
     }
 
 
@@ -61,7 +61,7 @@ export class AuthService {
 
     const user = await this.userRepository.findOne({
       where: {email},
-      select: {email: true, password: true}
+      select: {email: true, password: true, id: true}
       //selecciono solo los campos que quiero que me muestre cuando hago un login, que solo se base en ello
     });
 
@@ -72,13 +72,13 @@ export class AuthService {
 
     //compara la contraseña ingresada con la que esta en la db
     if(!bcrypt.compareSync(password, user.password)){
-      throw new UnauthorizedException('credentials not valid')
+      throw new UnauthorizedException('password not valid')
     }
 
 
     return {
       ...user,
-      token: this.getJwtToken({email: user.email})
+      token: this.getJwtToken({id: user.id})
     }
 
 

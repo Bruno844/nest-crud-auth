@@ -37,9 +37,9 @@ export class SeedService {
     
     //recorro esos productos, y los guardo en la variable
     //insertPromises
-    products.forEach(product => {
-      insertPromises.push(this.productService.create(product))
-    })
+    // products.forEach(product => {
+    //   insertPromises.push(this.productService.create(product))
+    // })
 
     //resuelvo todas las promesas anteriores en simultaneo, de esa manera es mas eficiente si tenemos muchas promesas en una funcion
     await Promise.all(insertPromises)

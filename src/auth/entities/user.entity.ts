@@ -1,5 +1,6 @@
 import { IsEmail } from "class-validator";
-import { BeforeInsert, BeforeUpdate, Column, Entity, PrimaryColumn, PrimaryGeneratedColumn } from "typeorm";
+import { Product } from "src/products/entities";
+import { BeforeInsert, BeforeUpdate, Column, Entity, OneToMany, PrimaryColumn, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity('users') //como se va a llamar en la base de datos
 export class User {
@@ -35,6 +36,17 @@ export class User {
         default: ['user'] //todos los usuarios que cree, van a tener el rol de user por default
     })
     roles: string[];
+
+
+    //uno a muchos, un usuario puede tener muchos prod
+    @OneToMany(
+        () => Product, //con que tabla se relaciona
+        (product) => product.user //apunta a un user que este relacionado en la otra tabla
+    ) 
+    product: Product;
+
+
+
 
     //lo que hace es que antes de guardar el mail en la base de datos, convierta el mail todo a minuscula, en caso que el usuario haya ingresa mayusculas
     @BeforeInsert()
