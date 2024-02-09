@@ -26,6 +26,20 @@ export class AuthController {
     return this.authService.login( loginUserDto);
   }
 
+
+  //verifica si el usuario esta en la db, y genera un nuevo token,
+  //implementado en el auth.service
+  @Get('check-status')
+  @Auth()
+  checkAuthStatus(
+    @GetUser() user: User 
+  ){
+
+    return this.authService.checkAuthStatus(user)
+  }
+
+
+
   //ruta para probar rutas protegidas usando guards y custom decorator
   @Get('private')
   @UseGuards(AuthGuard())

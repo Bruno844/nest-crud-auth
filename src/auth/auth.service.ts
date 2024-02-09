@@ -86,6 +86,24 @@ export class AuthService {
   }
 
 
+  async checkAuthStatus(user: User){
+
+    
+    //toma todos los valores del user para mostrarlo, y luego del token, lo genera en base al id del usuario que lo busca desde la base de datos y lo retorna. Basicamente retorna el usuario buscandolo por el id y genera un token nuevo.
+    return {
+      ...user,
+      token: this.getJwtToken({id: user.id})
+    }
+
+  }
+
+
+
+
+
+
+
+
   //se usa la palabra private cuando solo se va a usar en solo ese archivo, nunca se va a usar afuera
   private getJwtToken(payload: JwtPayload){
 
